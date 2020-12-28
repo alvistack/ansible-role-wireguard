@@ -1,0 +1,125 @@
+---
+
+.script-git-submodule: &script-git-submodule
+  - |
+    git submodule sync --recursive
+    git submodule update --init --recursive
+
+.script-symlink-ansible-role: &script-symlink-ansible-role
+  - |
+    export _ROLE=$(echo $CI_PROJECT_NAME | sed 's/^ansible-role-//g')
+    mkdir -p $HOME/.ansible/roles
+    ln -s $CI_PROJECT_DIR $HOME/.ansible/roles/$_ROLE
+
+.script-bootstrap-vagrant: &script-bootstrap-vagrant
+  - |
+    curl -skL -O https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.deb
+    sudo dpkg -i vagrant_2.2.14_x86_64.deb
+    rm -rf vagrant_2.2.14_*
+
+.script-bootstrap-libvirt: &script-bootstrap-libvirt
+  - |
+    sudo apt-get update
+    sudo apt-get install -y binutils bridge-utils dnsmasq-base ebtables gcc libguestfs-tools libvirt-clients libvirt-daemon-system libvirt-dev make qemu-kvm qemu-utils ruby-dev
+    vagrant plugin install vagrant-libvirt
+    sudo systemctl start libvirtd.service
+
+.script-bootstrap-ansible: &script-bootstrap-ansible
+  - |
+    sudo apt-get update
+    sudo apt-get -y install ca-certificates curl gcc iproute2 pwgen python3 python3-dev sudo
+    curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3 - --prefix=/usr/local
+    sudo -H pip3 install --prefix=/usr/local --upgrade --requirement requirements.txt
+
+.script-molecule-test: &script-molecule-test
+  - |
+    source ./scripts/run-tests.sh
+    molecule test -s $_MOLECULE_SCENARIO_NAME
+
+.script-ansible-galaxy-role-import: &script-ansible-galaxy-role-import
+  - |
+    if [[ -n "$CI_COMMIT_TAG" ]]; then
+      export _USER=$CI_PROJECT_USER
+      export _REPO=$CI_PROJECT_NAME
+    else
+      exit 0
+    fi
+    ansible-galaxy role import --token $ANSIBLE_GALAXY_TOKEN $_USER $_REPO
+
+.job-molecule: &job-molecule
+  script:
+    - *script-bootstrap-vagrant
+    - *script-bootstrap-libvirt
+    - *script-bootstrap-ansible
+    - *script-molecule-test
+
+.job-ansible-galaxy: &job-ansible-galaxy
+  script:
+    - *script-bootstrap-ansible
+    - *script-ansible-galaxy-role-import
+
+default:
+  before_script:
+    - *script-git-submodule
+    - *script-symlink-ansible-role
+
+build:ubuntu-20.04:
+  <<: *job-molecule
+  stage: build
+  variables:
+    _MOLECULE_SCENARIO_NAME: "ubuntu-20.04"
+
+build:ubuntu-18.04:
+  <<: *job-molecule
+  stage: build
+  variables:
+    _MOLECULE_SCENARIO_NAME: "ubuntu-18.04"
+
+test:ubuntu-20.10:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "ubuntu-20.10"
+  allow_failure: true
+
+test:centos-8:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "centos-8"
+  allow_failure: true
+
+test:centos-7:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "centos-7"
+  allow_failure: true
+
+test:suse-15:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "suse-15"
+  allow_failure: true
+
+test:debian-10:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "debian-10"
+  allow_failure: true
+
+test:fedora-33:
+  <<: *job-molecule
+  stage: test
+  variables:
+    _MOLECULE_SCENARIO_NAME: "fedora-33"
+  allow_failure: true
+
+deploy:ansible-galaxy:
+  <<: *job-ansible-galaxy
+  stage: deploy
+  needs:
+    - build:ubuntu-20.04
+    - build:ubuntu-18.04
