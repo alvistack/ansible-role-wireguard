@@ -1,8 +1,14 @@
 # Ansible Role for WireGuard
 
-## 4.6.0 - TBC
+## 4.7.0 - TBC
 
 ### Major Changes
+
+## 4.6.0 - 2020-12-28
+
+### Major Changes
+
+  - Simplify Molecule scenario for vagrant-libvirt
 
 ## 4.5.0 - 2020-12-28
 
