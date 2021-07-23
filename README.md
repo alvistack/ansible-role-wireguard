@@ -1,13 +1,9 @@
 # Ansible Role for WireGuard
 
-[![Gitlab pipeline
-status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-wireguard/master)](https://gitlab.com/alvistack/ansible-role-wireguard/-/pipelines)
-[![GitHub
-release](https://img.shields.io/github/release/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/releases)
-[![GitHub
-license](https://img.shields.io/github/license/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/blob/master/LICENSE)
-[![Ansible
-Role](https://img.shields.io/badge/galaxy-alvistack.wireguard-blue.svg)](https://galaxy.ansible.com/alvistack/wireguard)
+[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-wireguard/master)](https://gitlab.com/alvistack/ansible-role-wireguard/-/pipelines)
+[![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/releases)
+[![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/blob/master/LICENSE)
+[![Ansible Role](https://img.shields.io/badge/galaxy-alvistack.wireguard-blue.svg)](https://galaxy.ansible.com/alvistack/wireguard)
 
 Ansible Role for WireGuard Installation.
 
@@ -43,8 +39,7 @@ This role could simply deploy to `localhost` as below:
 ## License
 
   - Code released under [Apache License 2.0](LICENSE)
-  - Docs released under [CC BY
-    4.0](http://creativecommons.org/licenses/by/4.0/)
+  - Docs released under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 
 ## Author Information
 
