@@ -1,5 +1,7 @@
 # Ansible Role for WireGuard
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/ansible-role-wireguard/master)](https://gitlab.com/alvistack/ansible-role-wireguard/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/ansible-role-wireguard.svg)](https://github.com/alvistack/ansible-role-wireguard/blob/master/LICENSE)
