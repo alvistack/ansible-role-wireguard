@@ -20,6 +20,6 @@ collections:
     version: ">=0.0.0,<1.0.0"
 
 roles:
-  - name: kernel
+  - name: alvistack.kernel
     src: https://github.com/alvistack/ansible-role-kernel
     version: develop

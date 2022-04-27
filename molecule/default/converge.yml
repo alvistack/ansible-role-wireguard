@@ -20,10 +20,10 @@
   tasks:
     - name: include role
       ansible.builtin.include_role:
-        name: kernel
-      tags: kernel
+        name: alvistack.kernel
+      tags: alvistack.kernel
 
     - name: include role
       ansible.builtin.include_role:
-        name: wireguard
-      tags: wireguard
+        name: alvistack.wireguard
+      tags: alvistack.wireguard
