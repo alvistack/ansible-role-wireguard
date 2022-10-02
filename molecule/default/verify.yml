@@ -20,6 +20,7 @@
   become: true
   tasks:
     - name: wg --version
-      ansible.builtin.command: wg --version
+      ansible.builtin.command:
+        cmd: wg --version
       register: result
       changed_when: result is not succeeded
