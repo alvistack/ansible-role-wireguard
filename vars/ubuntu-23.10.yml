@@ -15,4 +15,4 @@
 # limitations under the License.
 
 _apt:
-  - { state: "latest", name: "wireguard" }
+  - { state: latest, name: wireguard }

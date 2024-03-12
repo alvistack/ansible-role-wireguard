@@ -15,4 +15,4 @@
 # limitations under the License.
 
 _zypper:
-  - { state: "latest", name: "wireguard-tools" }
+  - { state: latest, name: wireguard-tools }
