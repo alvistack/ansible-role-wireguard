@@ -31,6 +31,6 @@ _yum_repository:
     gpgkey: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9
     state: present
 
-_yum:
+_dnf:
   - { state: latest, name: kmod-wireguard }
   - { state: latest, name: wireguard-tools }
