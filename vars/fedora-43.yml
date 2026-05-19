@@ -18,5 +18,5 @@ _rpm_key: []
 
 _yum_repository: []
 
-_yum:
+_dnf:
   - { state: latest, name: wireguard-tools }
